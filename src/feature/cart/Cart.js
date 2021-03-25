@@ -1,8 +1,10 @@
 import { Grid, makeStyles, Typography } from '@material-ui/core';
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { useStateContext } from '../../Shared/cotainer/StateProvider';
 import CartItem from './cartItem/CartItem';
 import Subtotal from './subtotal/Subtotal';
+import FlipMove from 'react-flip-move';
 
 const useStyle = makeStyles((theme) => ({
     root: {
@@ -26,18 +28,25 @@ const Cart = () => {
                     <div className={classes.items_head}>
                         <Typography variant='h4'>Your shopping items</Typography>
                     </div>
-                    {basket.map((item) => (
-                        <CartItem
-                            key={item.id}
-                            id={item.id}
-                            title={item.title}
-                            body={item.body}
-                            price={item.price}
-                            rating={item.rating}
-                            image={item.image}
-                            quantity={item.quantity}
-                        />
-                    ))}
+                    {basket?.length === 0 && (
+                        <Typography>
+                            you have no items.<Link to='/'>Get some</Link>{' '}
+                        </Typography>
+                    )}
+                    <FlipMove>
+                        {basket.map((item) => (
+                            <CartItem
+                                key={item.id}
+                                id={item.id}
+                                title={item.title}
+                                body={item.body}
+                                price={item.price}
+                                rating={item.rating}
+                                image={item.image}
+                                quantity={item.quantity}
+                            />
+                        ))}
+                    </FlipMove>
                 </Grid>
                 <Grid item xs={12} sm={3}>
                     <Subtotal basket={basket} />

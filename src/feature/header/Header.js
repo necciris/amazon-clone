@@ -26,6 +26,8 @@ import { CustomThemeContext } from '../../Shared/theme/CustomThemePrivider';
 import { useStateContext } from '../../Shared/cotainer/StateProvider';
 import { getTotalItem } from '../../Shared/reducer/Reducer';
 import { auth } from '../../Shared/firebase/firebase';
+import { useTranslation } from 'react-i18next';
+import SelectLanguage from './select_language/SelectLanguage';
 
 const useStyle = makeStyles((theme) => ({
     header: {
@@ -96,6 +98,7 @@ const Header = () => {
     const [openDrawer, setOpenDrawer] = useState(false);
     const { currentTheme, handleSetTheme } = useContext(CustomThemeContext);
     const [{ basket, user }, dispatch] = useStateContext();
+    const { t, i18n } = useTranslation();
 
     const toggleDrawer = (open) => (event) => {
         if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -107,15 +110,15 @@ const Header = () => {
     const menuItems = [
         {
             id: 1,
-            lineOne: 'Returns',
-            lineTwo: '& Orders',
-            to: '/',
+            lineOne: t('header.return'),
+            lineTwo: t('header.orders'),
+            to: '/orders',
             icon: <HistoryIcon />,
         },
         {
             id: 2,
-            lineOne: 'Your',
-            lineTwo: 'Prime',
+            lineOne: t('header.your'),
+            lineTwo: t('header.prime'),
             to: '/cart',
             icon: <HistoryIcon />,
         },
@@ -160,7 +163,7 @@ const Header = () => {
                             color='secondary'
                         />
                     }
-                    label={currentTheme === 'darkTheme' ? 'Dark' : 'White'}
+                    label={currentTheme === 'darkTheme' ? t('theme.dark') : t('theme.white')}
                 />
 
                 <Paper component='form' className={classes.header__search}>
@@ -169,15 +172,15 @@ const Header = () => {
                         <SearchIcon />
                     </IconButton>
                 </Paper>
-
+                <SelectLanguage />
                 <div className={classes.header__nav}>
                     <Button component={Link} to={!user && '/login'} color='inherit'>
                         <div className={classes.header__option} onClick={handleAuthentication}>
                             <Typography variant='subtitle2' className={classes.header_optionLineOne}>
-                                Hello {user ? user.email : 'Guest'}
+                                {t('header.hello')} {user ? user.email : t('header.guest')}
                             </Typography>
                             <Typography variant='subtitle1' className={classes.header_optionLineTwo}>
-                                {user ? 'Sign Out' : 'Sign In'}
+                                {user ? t('header.signout') : t('header.signin')}
                             </Typography>
                         </div>
                     </Button>

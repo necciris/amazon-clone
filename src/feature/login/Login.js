@@ -1,10 +1,11 @@
 import { Button, Checkbox, Container, FormControlLabel, Grid, makeStyles, TextField, Typography } from '@material-ui/core';
-import React, { useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import MailIcon from '@material-ui/icons/Mail';
 import LockIcon from '@material-ui/icons/Lock';
 import InputPassword from '../../Shared/component/Input/InputPassword';
 import { auth } from '../../Shared/firebase/firebase';
+import { useStateContext } from '../../Shared/cotainer/StateProvider';
 
 const useStyle = makeStyles((theme) => ({
     root: {
@@ -35,15 +36,33 @@ const useStyle = makeStyles((theme) => ({
 const Login = () => {
     const classes = useStyle();
     const history = useHistory();
+    const location = useLocation();
+
+    const params = new URLSearchParams(location.search); // ?returnurl=/asd
 
     const [email, setemail] = useState('');
     const [password, setPassword] = useState('');
+    const [{ user }, dispatch] = useStateContext();
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        if (user) {
+            history.push('/');
+        }
+        setLoading(false);
+    }, [user]);
 
     const signIn = (e) => {
         e.preventDefault();
         auth.signInWithEmailAndPassword(email, password)
             .then((auth) => {
-                if (auth) history.push('/');
+                if (auth) {
+                    dispatch({
+                        type: 'SET_USER',
+                        user: auth.user,
+                    });
+                    history.push(params.get('returnurl') || '/');
+                }
             })
             .catch((error) => alert(error));
     };
@@ -56,6 +75,8 @@ const Login = () => {
             })
             .catch((error) => alert(error));
     };
+
+    if (loading) return <div>Loading....</div>;
 
     return (
         <Container component='main' maxWidth='xs'>

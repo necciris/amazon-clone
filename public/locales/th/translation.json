@@ -1,0 +1,16 @@
+{
+    "theme":{
+        "dark" : "มืด",
+        "white" : "สว่าง"
+    },
+    "header":{
+        "hello" : "สวัสดี",
+        "guest" : "ผู้มาเยือน",
+        "signin" : "เข้าสู่ระบบ",
+        "signout" : "ออกจากระบบ",
+        "return" : "RETURN",
+        "orders" : "& ออเดอร์",
+        "your" : "YOUR",
+        "prime" : "PRIME"
+    }
+}

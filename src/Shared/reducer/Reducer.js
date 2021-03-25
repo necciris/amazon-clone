@@ -33,6 +33,9 @@ const reducer = (state, action) => {
             newBasket = newBasket.filter((item) => item.id !== action.id);
             return { ...state, basket: newBasket };
         }
+        case 'EMPTY_BASKET': {
+            return { ...state, basket: [] };
+        }
         case 'SET_USER': {
             return { ...state, user: action.user };
         }

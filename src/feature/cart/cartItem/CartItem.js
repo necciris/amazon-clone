@@ -1,5 +1,5 @@
 import { Button, Card, CardContent, CardMedia, IconButton, makeStyles, Typography } from '@material-ui/core';
-import React from 'react';
+import React, { forwardRef } from 'react';
 import Stars from '../../../Shared/component/Stars';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const CartItem = ({ id, title, body, image, price, rating, quantity }) => {
+const CartItem = forwardRef(({ id, title, body, image, price, rating, quantity, hideAction }, ref) => {
     const classes = useStyles();
 
     const [{ basket }, dispatch] = useStateContext();
@@ -67,7 +67,7 @@ const CartItem = ({ id, title, body, image, price, rating, quantity }) => {
     };
 
     return (
-        <Card className={classes.root}>
+        <Card className={classes.root} ref={ref}>
             <CardMedia className={classes.cover} image={image} title='Live from space album cover' />
             <div className={classes.details}>
                 <CardContent className={classes.content}>
@@ -82,21 +82,23 @@ const CartItem = ({ id, title, body, image, price, rating, quantity }) => {
                         {body}
                     </Typography>
                 </CardContent>
-                <div className={classes.controls}>
-                    <IconButton aria-label='minus' onClick={reduceItem}>
-                        <RemoveIcon />
-                    </IconButton>
-                    {quantity}
-                    <IconButton aria-label='add' onClick={addToCart}>
-                        <AddIcon />
-                    </IconButton>
-                    <Button color='secondary' variant='contained' onClick={removeFromCart}>
-                        Remove from cart
-                    </Button>
-                </div>
+                {!hideAction && (
+                    <div className={classes.controls}>
+                        <IconButton aria-label='minus' onClick={reduceItem}>
+                            <RemoveIcon />
+                        </IconButton>
+                        {quantity}
+                        <IconButton aria-label='add' onClick={addToCart}>
+                            <AddIcon />
+                        </IconButton>
+                        <Button color='secondary' variant='contained' onClick={removeFromCart}>
+                            Remove from cart
+                        </Button>
+                    </div>
+                )}
             </div>
         </Card>
     );
-};
+});
 
 export default CartItem;

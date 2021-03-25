@@ -1,4 +1,5 @@
 import { Button, Card, CardActions, CardContent, CardMedia, Grid, makeStyles, Typography } from '@material-ui/core';
+import { useSnackbar } from 'notistack';
 
 import React from 'react';
 import Stars from '../../../Shared/component/Stars';
@@ -10,7 +11,11 @@ const useStyle = makeStyles((theme) => ({
         zIndex: '1 !important',
         display: 'flex',
     },
-    card: { display: 'flex', flexDirection: 'column' },
+    card: {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+    },
     media: {
         margin: '20px',
         height: 0,
@@ -25,6 +30,7 @@ const useStyle = makeStyles((theme) => ({
 const Product = ({ id, title, body, image, price, rating }) => {
     const classes = useStyle();
     const [{ basket }, dispatch] = useStateContext();
+    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
     const addToCart = () => {
         dispatch({
@@ -37,6 +43,10 @@ const Product = ({ id, title, body, image, price, rating }) => {
                 price: price,
                 rating: rating,
             },
+        });
+
+        enqueueSnackbar(`Add ${title} to cart.`, {
+            variant: 'success',
         });
     };
 

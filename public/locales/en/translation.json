@@ -1,0 +1,16 @@
+{
+    "theme":{
+        "dark" : "Dark",
+        "white" : "White"
+    },
+    "header":{
+        "hello" : "HELLO",
+        "guest" : "GUEST",
+        "signin" : "SIGN IN",
+        "signout" : "SIGN OUT",
+        "return" : "RETURN",
+        "orders" : "& ORDERS",
+        "your" : "YOUR",
+        "prime" : "PRIME"
+    }
+}

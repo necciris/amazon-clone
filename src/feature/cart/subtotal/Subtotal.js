@@ -2,6 +2,7 @@ import { Button, Checkbox, FormControlLabel, makeStyles } from '@material-ui/cor
 import { grey } from '@material-ui/core/colors';
 import React from 'react';
 import CurrencyFormat from 'react-currency-format';
+import { useHistory } from 'react-router';
 import { getTotalItem, getTotalPrice } from '../../../Shared/reducer/Reducer';
 
 const useStyle = makeStyles((theme) => ({
@@ -17,6 +18,7 @@ const useStyle = makeStyles((theme) => ({
 }));
 
 const Subtotal = ({ basket }) => {
+    const history = useHistory();
     const classes = useStyle();
     return (
         <div className={classes.root}>
@@ -37,7 +39,7 @@ const Subtotal = ({ basket }) => {
                 prefix={'$'}
                 decimalScale={2}
             />
-            <Button color='secondary' variant='contained'>
+            <Button color='secondary' variant='contained' onClick={(e) => history.push('/payment')} disabled={basket?.length <= 0}>
                 Process to Checkout
             </Button>
         </div>
