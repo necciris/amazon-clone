@@ -18,7 +18,7 @@ import {
 } from '@material-ui/core';
 import React, { useContext, useState } from 'react';
 import SearchIcon from '@material-ui/icons/Search';
-import { ShoppingBasket } from '@material-ui/icons';
+import { GitHub, ShoppingBasket } from '@material-ui/icons';
 import MenuIcon from '@material-ui/icons/Menu';
 import HistoryIcon from '@material-ui/icons/History';
 import { Link } from 'react-router-dom';
@@ -201,6 +201,11 @@ const Header = () => {
                             <Badge badgeContent={getTotalItem(basket)} color='secondary'>
                                 <ShoppingBasket />
                             </Badge>
+                        </IconButton>
+                    </div>
+                    <div className={classes.header__optionBasket}>
+                        <IconButton onClick={() => window.open('https://github.com/necciris/amazon-clone')} color='inherit' target='blank'>
+                            <GitHub />
                         </IconButton>
                     </div>
                 </div>
