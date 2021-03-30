@@ -140,6 +140,7 @@ const Payment = () => {
                         <Typography variant='h4'>Payment Method</Typography>
                     </Grid>
                     <Grid item xs={12} sm={6}>
+                        <Typography variant='subtitle1'>Ex Card : 4242 4242 4242 4242 04 / 24 242 42424</Typography>
                         <form onSubmit={handleSubmit}>
                             <CardElement onChange={handleChange} />
                             <div className={classes.priceContainer}>
